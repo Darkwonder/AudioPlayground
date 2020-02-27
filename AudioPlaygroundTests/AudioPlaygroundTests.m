@@ -224,9 +224,9 @@
     NSLog(@"\n\ntestChannelMapStereo_To_Mono::1) %i\n", status);
     XCTAssert(status == noErr);
     
-    float inData[16] = { 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0 };
-    float convertedData[32] = {};
-    float outData[4] = { 1.0, 1.0, 1.0, 1.0 };
+    UInt16 inData[3] = { 1, 2, 3 };
+    UInt16 convertedData[6] = {};
+    UInt16 outData[6] = { 1, 1, 2, 2 , 3 , 3 };
     
     SInt32 channelMap[2] = { 0, 0 };
     status = AudioConverterSetProperty(audioConverter, kAudioConverterChannelMap, sizeof(channelMap), &channelMap);
