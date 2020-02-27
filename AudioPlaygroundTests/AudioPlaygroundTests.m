@@ -97,15 +97,18 @@
     outASBD.mBitsPerChannel = 32;
     
     AudioConverterRef audioConverter = NULL;
-    NSLog(@"\nFormat flags %i\n", inASBD.mFormatFlags);
-    XCTAssert(AudioConverterNew(&inASBD, &outASBD, &audioConverter) == noErr);
+    OSStatus status = AudioConverterNew(&inASBD, &outASBD, &audioConverter);
+    NSLog(@"\n\ntestChannelMapCh4ToCh2_32_Float::1) %i\n", status);
+    XCTAssert(status == noErr);
     
     float inData[16] = { 0.0, 1.0, 2.0, 3.0, 0.0, 1.0, 2.0, 3.0, 0.0, 1.0, 2.0, 3.0, 0.0, 1.0, 2.0, 3.0};
     float convertedData[8] = {};
     float outData[4] = { 1.0, 3.0, 1.0, 3.0 };
     
     SInt32 channelMap[2] = { 1, 3 };
-    XCTAssert(AudioConverterSetProperty(audioConverter, kAudioConverterChannelMap, sizeof(channelMap), &channelMap) == noErr);
+    status = AudioConverterSetProperty(audioConverter, kAudioConverterChannelMap, sizeof(channelMap), &channelMap);
+    NSLog(@"\n\ntestChannelMapCh4ToCh2_32_Float::2) %i\n", status);
+    XCTAssert(status == noErr);
     
     AudioBufferList inBufferList = { 0 };
     inBufferList.mNumberBuffers = 1;
@@ -119,9 +122,13 @@
     outBufferList.mBuffers[0].mDataByteSize = sizeof(convertedData);
     outBufferList.mBuffers[0].mNumberChannels = 2;
     
-    XCTAssert(AudioConverterConvertComplexBuffer(audioConverter, 4, &inBufferList, &outBufferList) == noErr);
+    status = AudioConverterConvertComplexBuffer(audioConverter, 4, &inBufferList, &outBufferList);
+    NSLog(@"\n\ntestChannelMapCh4ToCh2_32_Float::3) %i\n", status);
+    XCTAssert(status == noErr);
     
-    XCTAssert(memcmp(convertedData, outData, sizeof(convertedData)) == 0);
+    status = memcmp(convertedData, outData, sizeof(convertedData));
+    NSLog(@"\n\ntestChannelMapCh4ToCh2_32_Float::4) %i\n", status);
+    XCTAssert(status == 0);
     
     AudioConverterDispose(audioConverter);
 }
@@ -151,7 +158,7 @@
     AudioConverterRef audioConverter = NULL;
     
     OSStatus status = AudioConverterNew(&inASBD, &outASBD, &audioConverter);
-    NSLog(@"\n\nT1::status = %i\n" ,status);
+    NSLog(@"\n\ntestChannelMapCh4ToCh2_32_Integer::1) %i\n", status);
     XCTAssert(status == noErr);
     
     float inData[16] = { 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0 };
@@ -160,7 +167,9 @@
     float outData[4] = { 1.0, 3.0, 1.0, 3.0 };
 //    SInt32 channelMap[2] = { 1, 3 };
     SInt32 channelMap[2] = { 0, 2 };
-    XCTAssert(AudioConverterSetProperty(audioConverter, kAudioConverterChannelMap, sizeof(channelMap), &channelMap) == noErr);
+    status = AudioConverterSetProperty(audioConverter, kAudioConverterChannelMap, sizeof(channelMap), &channelMap);
+    NSLog(@"\n\ntestChannelMapCh4ToCh2_32_Integer::2) %i\n", status);
+    XCTAssert(status == noErr);
     
     AudioBufferList inBufferList = { 0 };
     inBufferList.mNumberBuffers = 1;
@@ -174,11 +183,13 @@
     outBufferList.mBuffers[0].mDataByteSize = sizeof(convertedData);
     outBufferList.mBuffers[0].mNumberChannels = 2;
     
-    NSLog(@"\n\nS1::Size %i vs %i",sizeof(inData), sizeof(convertedData));
-
-    XCTAssert(AudioConverterConvertComplexBuffer(audioConverter, 4, &inBufferList, &outBufferList) == noErr);
+    status = AudioConverterConvertComplexBuffer(audioConverter, 4, &inBufferList, &outBufferList);
+    NSLog(@"\n\ntestChannelMapCh4ToCh2_32_Integer::3) %i\n", status);
+    XCTAssert(status == noErr);
     
-    XCTAssert(memcmp(convertedData, outData, sizeof(convertedData)) == 0);
+    status = memcmp(convertedData, outData, sizeof(convertedData));
+    NSLog(@"\n\ntestChannelMapCh4ToCh2_32_Integer::4) %i\n", status);
+    XCTAssert(status == 0);
     
     AudioConverterDispose(audioConverter);
 }
@@ -210,7 +221,7 @@
     
     AudioConverterRef audioConverter = NULL;
     OSStatus status = AudioConverterNew(&inASBD, &outASBD, &audioConverter);
-    NSLog(@"\n\nT2::status = %i\n",status);
+    NSLog(@"\n\ntestChannelMapStereo_To_Mono::1) %i\n", status);
     XCTAssert(status == noErr);
     
     float inData[16] = { 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0 };
@@ -218,7 +229,9 @@
     float outData[4] = { 1.0, 1.0, 1.0, 1.0 };
     
     SInt32 channelMap[2] = { 0, 0 };
-    XCTAssert(AudioConverterSetProperty(audioConverter, kAudioConverterChannelMap, sizeof(channelMap), &channelMap) == noErr);
+    status = AudioConverterSetProperty(audioConverter, kAudioConverterChannelMap, sizeof(channelMap), &channelMap);
+    NSLog(@"\n\ntestChannelMapStereo_To_Mono::2) %i\n", status);
+    XCTAssert(status == noErr);
     
     AudioBufferList inBufferList = { 0 };
     inBufferList.mNumberBuffers = 1;
@@ -233,10 +246,11 @@
     outBufferList.mBuffers[0].mNumberChannels = 2;
     // The mDataByteSize sizes must be equal
     status = AudioConverterConvertComplexBuffer(audioConverter, 2, &inBufferList, &outBufferList);
-    NSLog(@"\n\nS2 = %i\nSize %i vs %i",status, sizeof(inData), sizeof(outData));
+    NSLog(@"\n\ntestChannelMapStereo_To_Mono::3) %i\n", status);
     XCTAssert(status == noErr);
-    int result = memcmp(convertedData, outData, sizeof(convertedData));
-    XCTAssert(result == 0);
+    status = memcmp(convertedData, outData, sizeof(convertedData));
+    NSLog(@"\n\ntestChannelMapStereo_To_Mono::4) %i\n", status);
+    XCTAssert(status == 0);
     
     AudioConverterDispose(audioConverter);
 }
