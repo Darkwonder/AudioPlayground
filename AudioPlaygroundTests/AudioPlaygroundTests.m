@@ -101,14 +101,14 @@
     NSLog(@"\n\ntestChannelMapCh4ToCh2_32_Float::1) %i\n", status);
     XCTAssert(status == noErr);
     
-    float inData[16] = { 0.0, 1.0, 2.0, 3.0, 0.0, 1.0, 2.0, 3.0, 0.0, 1.0, 2.0, 3.0, 0.0, 1.0, 2.0, 3.0};
-    float convertedData[8] = {};
-    float outData[4] = { 1.0, 3.0, 1.0, 3.0 };
-    
     SInt32 channelMap[2] = { 1, 3 };
     status = AudioConverterSetProperty(audioConverter, kAudioConverterChannelMap, sizeof(channelMap), &channelMap);
     NSLog(@"\n\ntestChannelMapCh4ToCh2_32_Float::2) %i\n", status);
     XCTAssert(status == noErr);
+
+    Float32 inData[16] = { 0.0, 1.0, 2.0, 3.0, 0.0, 1.0, 2.0, 3.0, 0.0, 1.0, 2.0, 3.0, 0.0, 1.0, 2.0, 3.0 };
+    Float32 convertedData[8] = {};
+    Float32 outData[8] = { 1.0, 3.0, 1.0, 3.0, 1.0, 3.0, 1.0, 3.0 };
     
     AudioBufferList inBufferList = { 0 };
     inBufferList.mNumberBuffers = 1;
@@ -161,10 +161,10 @@
     NSLog(@"\n\ntestChannelMapCh4ToCh2_32_Integer::1) %i\n", status);
     XCTAssert(status == noErr);
     
-    float inData[16] = { 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0 };
-    float convertedData[8] = {};
+    Float32 inData[16] = { 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0, 4.0 };
+    Float32 convertedData[8] = {};
 //    float outData[4] = { 2.0, 4.0, 2.0, 4.0 };
-    float outData[4] = { 1.0, 3.0, 1.0, 3.0 };
+    Float32 outData[8] = { 1.0, 3.0, 1.0, 3.0, 1.0, 3.0, 1.0, 3.0 };
 //    SInt32 channelMap[2] = { 1, 3 };
     SInt32 channelMap[2] = { 0, 2 };
     status = AudioConverterSetProperty(audioConverter, kAudioConverterChannelMap, sizeof(channelMap), &channelMap);
