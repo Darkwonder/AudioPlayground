@@ -80,9 +80,11 @@
     inASBD.mSampleRate = 44100.0;
     inASBD.mFormatID = kAudioFormatLinearPCM;
     inASBD.mFormatFlags = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked;
+    
     inASBD.mBytesPerPacket = 16;
     inASBD.mFramesPerPacket = 1;
     inASBD.mBytesPerFrame = 16;
+    
     inASBD.mChannelsPerFrame = 4;
     inASBD.mBitsPerChannel = 32;
     
@@ -90,9 +92,11 @@
     outASBD.mSampleRate = 44100.0;
     outASBD.mFormatID = kAudioFormatLinearPCM;
     outASBD.mFormatFlags = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked;
+    
     outASBD.mBytesPerPacket = 8;
     outASBD.mFramesPerPacket = 1;
     outASBD.mBytesPerFrame = 8;
+    
     outASBD.mChannelsPerFrame = 2;
     outASBD.mBitsPerChannel = 32;
     
@@ -125,7 +129,7 @@
     status = AudioConverterConvertComplexBuffer(audioConverter, 4, &inBufferList, &outBufferList);
     NSLog(@"\n\ntestChannelMapCh4ToCh2_32_Float::3) %i\n", status);
     XCTAssert(status == noErr);
-    
+
     status = memcmp(convertedData, outData, sizeof(convertedData));
     NSLog(@"\n\ntestChannelMapCh4ToCh2_32_Float::4) %i\n", status);
     XCTAssert(status == 0);
@@ -139,9 +143,11 @@
     inASBD.mSampleRate = 44100.0;
     inASBD.mFormatID = kAudioFormatLinearPCM;
     inASBD.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+    
     inASBD.mBytesPerPacket = 16;
     inASBD.mFramesPerPacket = 1;
     inASBD.mBytesPerFrame = 16;
+    
     inASBD.mChannelsPerFrame = 4;
     inASBD.mBitsPerChannel = 32;
     
@@ -149,9 +155,11 @@
     outASBD.mSampleRate = 44100.0;
     outASBD.mFormatID = kAudioFormatLinearPCM;
     outASBD.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+    
     outASBD.mBytesPerPacket = 8;
     outASBD.mFramesPerPacket = 1;
     outASBD.mBytesPerFrame = 8;
+    
     outASBD.mChannelsPerFrame = 2;
     outASBD.mBitsPerChannel = 32;
     
@@ -202,9 +210,11 @@
     
     inASBD.mFormatID = 1819304813;
     inASBD.mFormatFlags = 12;
+    
     inASBD.mBytesPerPacket = 2;
     inASBD.mFramesPerPacket = 1;
     inASBD.mBytesPerFrame = 2;
+    
     inASBD.mChannelsPerFrame = 1;
     inASBD.mBitsPerChannel = 16;
     
@@ -212,10 +222,12 @@
     AudioStreamBasicDescription outASBD = { 0 };
     outASBD.mSampleRate = 44100.0;
     outASBD.mFormatID = 1819304813;
-    outASBD.mFormatFlags = 14;
+    outASBD.mFormatFlags = 12;
+    
     outASBD.mBytesPerPacket = 4;
     outASBD.mFramesPerPacket = 1;
     outASBD.mBytesPerFrame = 4;
+    
     outASBD.mChannelsPerFrame = 2;
     outASBD.mBitsPerChannel = 16;
     
@@ -245,15 +257,17 @@
     outBufferList.mBuffers[0].mDataByteSize = sizeof(convertedData);
     outBufferList.mBuffers[0].mNumberChannels = 2;
     // The mDataByteSize sizes must be equal
-    status = AudioConverterConvertComplexBuffer(audioConverter, 2, &inBufferList, &outBufferList);
+    status = AudioConverterConvertComplexBuffer(audioConverter, 3, &inBufferList, &outBufferList);
     NSLog(@"\n\ntestChannelMapStereo_To_Mono::3) %i\n", status);
-    XCTAssert(status == noErr);
+     XCTAssert(status == noErr);
+
     status = memcmp(convertedData, outData, sizeof(convertedData));
     NSLog(@"\n\ntestChannelMapStereo_To_Mono::4) %i\n", status);
-    XCTAssert(status == 0);
+    XCTAssert(status == noErr);
     
     AudioConverterDispose(audioConverter);
 }
+
 
 @end
 
