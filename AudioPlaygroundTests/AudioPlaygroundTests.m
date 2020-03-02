@@ -72,6 +72,81 @@
     // What is it? A method.
     // What is it for? Compares the first count characters of the objects pointed to by lhs and rhs.
     // Documentation: http://www.enseignement.polytechnique.fr/informatique/INF478/docs/Cpp/en/c/string/byte/memcmp.html
+
+ 
+}
+
+- (void)testLocalMemoryAllocation
+{
+    // convertedData is only available locally, until we leave the scope of the function.
+    UInt16 count = 255;
+    UInt16 total = count * 2;
+    UInt16 convertedData[total];
+   
+    for (int i=0; i<total; i++) {
+        convertedData[i] = 0;
+        NSLog(@"%i. is %i", i, convertedData[i]);
+    }
+    XCTAssertEqual((UInt16)convertedData[total - 1], 0);
+}
+
+- (void)testPersistantMemoryAllocation
+{
+    // convertedData is available until "free(convertedData);" is called.
+    // Should we forget to call free, data will be leaked.
+    // Over realsing an object will also lead to a crash.
+    // Example:
+    // someBufferList.mBuffers[0].mData = convertedData; convertedData - must be freed later.
+    AudioStreamBasicDescription inASBD = { 0 };
+    inASBD.mSampleRate = 44100.0;
+    inASBD.mFormatID = kAudioFormatLinearPCM;
+    inASBD.mFormatFlags = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked;
+    
+    inASBD.mBytesPerPacket = 16;
+    inASBD.mFramesPerPacket = 1;
+    inASBD.mBytesPerFrame = 16;
+    
+    inASBD.mChannelsPerFrame = 4;
+    inASBD.mBitsPerChannel = 32;
+    
+    AudioStreamBasicDescription outASBD = { 0 };
+    outASBD.mSampleRate = 44100.0;
+    outASBD.mFormatID = kAudioFormatLinearPCM;
+    outASBD.mFormatFlags = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked;
+    
+    outASBD.mBytesPerPacket = 8;
+    outASBD.mFramesPerPacket = 1;
+    outASBD.mBytesPerFrame = 8;
+    
+    outASBD.mChannelsPerFrame = 2;
+    outASBD.mBitsPerChannel = 32;
+    
+    Float32 inDataValues[16] = { 0.0, 1.0, 2.0, 3.0, 0.0, 1.0, 2.0, 3.0, 0.0, 1.0, 2.0, 3.0, 0.0, 1.0, 2.0, 3.0 };
+    Float32 outDataValues[8] = { 1.0, 3.0, 1.0, 3.0, 1.0, 3.0, 1.0, 3.0 };
+    
+    UInt32 sampleCount = 16;
+    UInt32 outSampleCount = 8;
+    Float32 inDataSize = sizeof(Float32) * sampleCount * inASBD.mChannelsPerFrame;
+    Float32 outDataSize = sizeof(Float32) * outSampleCount * outASBD.mChannelsPerFrame;
+      
+    Float32 *inData = malloc(inDataSize);
+    for(int i = 0; i < sampleCount ; i++)
+    {
+        inData[i] = inDataValues[i];
+    }
+      
+    Float32 *convertedData = malloc(outDataSize);
+    memset(convertedData, 0, outDataSize);
+      
+    Float32 *outData = malloc(outDataSize);
+    for(int i = 0; i < outSampleCount ; i++)
+    {
+        outData[i] = outDataValues[i];
+    }
+    
+    free(inData);
+    free(convertedData);
+    free(outData);
 }
 
 - (void)testChannelMapCh4ToCh2_32_Float
