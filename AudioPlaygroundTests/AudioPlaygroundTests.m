@@ -268,6 +268,57 @@
     AudioConverterDispose(audioConverter);
 }
 
+- (void)testChannelMapMono_To_Mono
+{
+    AudioStreamBasicDescription ASBD = { 0 };
+    ASBD.mSampleRate = 44100.0;
+    
+    ASBD.mFormatID = 1819304813;
+    ASBD.mFormatFlags = 12;
+    
+    ASBD.mBytesPerPacket = 2;
+    ASBD.mFramesPerPacket = 1;
+    ASBD.mBytesPerFrame = 2;
+    
+    ASBD.mChannelsPerFrame = 1;
+    ASBD.mBitsPerChannel = 16;
+    
+    AudioConverterRef audioConverter = NULL;
+    OSStatus status = AudioConverterNew(&ASBD, &ASBD, &audioConverter);
+    NSLog(@"\n\ntestChannelMapMono_To_Mono::1) %i\n", status);
+    XCTAssert(status == noErr);
+    
+    UInt16 inData[3] = { 1, 2, 3 };
+    UInt16 convertedData[6] = {};
+    UInt16 outData[6] = { 1, 2, 3 };
+    
+    SInt32 channelMap[1] = { 0 };
+    status = AudioConverterSetProperty(audioConverter, kAudioConverterChannelMap, sizeof(channelMap), &channelMap);
+    NSLog(@"\n\ntestChannelMapMono_To_Mono::2) %i\n", status);
+    XCTAssert(status == noErr);
+    
+    AudioBufferList inBufferList = { 0 };
+    inBufferList.mNumberBuffers = 1;
+    inBufferList.mBuffers[0].mData = inData;
+    inBufferList.mBuffers[0].mDataByteSize = sizeof(inData);
+    inBufferList.mBuffers[0].mNumberChannels = 1;
+    
+    AudioBufferList outBufferList;
+    outBufferList.mNumberBuffers = 1;
+    outBufferList.mBuffers[0].mData = convertedData;
+    outBufferList.mBuffers[0].mDataByteSize = sizeof(convertedData);
+    outBufferList.mBuffers[0].mNumberChannels = 1;
+    // The mDataByteSize sizes must be equal
+    status = AudioConverterConvertComplexBuffer(audioConverter, 3, &inBufferList, &outBufferList);
+    NSLog(@"\n\ntestChannelMapMono_To_Mono::3) %i\n", status);
+     XCTAssert(status == noErr);
+
+    status = memcmp(convertedData, outData, sizeof(convertedData));
+    NSLog(@"\n\ntestChannelMapMono_To_Mono::4) %i\n", status);
+    XCTAssert(status == noErr);
+    
+    AudioConverterDispose(audioConverter);
+}
 
 @end
 
