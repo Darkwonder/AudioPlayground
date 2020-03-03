@@ -23,13 +23,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F61E7FE8240E633100B4175B /* CoreAudio.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = CoreAudio.playground; path = Playgrounds/CoreAudio.playground; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F65D7A1A2407BC0500A55E3E /* AudioPlayground.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioPlayground.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F65D7A1D2407BC0500A55E3E /* AudioPlayground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioPlayground.h; sourceTree = "<group>"; };
 		F65D7A1E2407BC0500A55E3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F65D7A232407BC0500A55E3E /* AudioPlaygroundTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioPlaygroundTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F65D7A282407BC0500A55E3E /* AudioPlaygroundTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioPlaygroundTests.m; sourceTree = "<group>"; };
 		F65D7A2A2407BC0500A55E3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F6AFF22E240E3A5B00725E30 /* CoreAudio.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = CoreAudio.playground; path = Playgrounds/CoreAudio.playground; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		F6AFF22E240E3A5B00725E30 /* AudioToolBox.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = AudioToolBox.playground; path = Playgrounds/AudioToolBox.playground; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +92,8 @@
 		F6AFF22D240E3A4900725E30 /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
-				F6AFF22E240E3A5B00725E30 /* CoreAudio.playground */,
+				F61E7FE8240E633100B4175B /* CoreAudio.playground */,
+				F6AFF22E240E3A5B00725E30 /* AudioToolBox.playground */,
 			);
 			name = Playgrounds;
 			sourceTree = "<group>";
