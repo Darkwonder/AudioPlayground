@@ -173,9 +173,11 @@ AudioUnitSetProperty(audioUnit!,
 
 var emptySampleBuffer: CMSampleBuffer!
 var audioBufferList: AudioBufferList!
+/*
 osStatus = CMSampleBufferSetDataBufferFromAudioBufferList(emptySampleBuffer,
                                                           blockBufferAllocator: kCFAllocatorDefault,
                                                           blockBufferMemoryAllocator: kCFAllocatorDefault,
                                                           flags: 0,
 //                                                                   bufferList: &micAudioBufferList)
                                                           bufferList: &audioBufferList)
+*/
