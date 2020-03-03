@@ -52,14 +52,23 @@ print("\nAudioComponentDescription:\(String(describing: desc))")
 let inputComponent: AudioComponent? = AudioComponentFindNext(nil, &desc)
 // An AudioComponent is needed to initialize an AudioUnit.
 
+var osStatus: OSStatus = 0
+
 print("\nAudioComponent:\(String(describing: inputComponent))")
 
 // Create AudioUnit aka. AudioComponentInstance.
 print("\nCreating audio unit...")
 if let eInputComponent = inputComponent {
-    AudioComponentInstanceNew(eInputComponent, &audioUnit)
+    osStatus = AudioComponentInstanceNew(eInputComponent, &audioUnit)
 }
-print("\nAudioUnit created::\(String(describing: audioUnit))")
+print("\nStatus = \(osStatus).")
+print("\nAudioUnit created::\(String(describing: audioUnit)).")
+
+print("\nCreating audio unit...")
+osStatus = AudioUnitInitialize(audioUnit)
+print("\nStatus = \(osStatus).")
+print("\nAudioUnit initialized::\(String(describing: audioUnit)).")
+
 
 var kInputBus: UInt32 = 1
 var kOutputBus: UInt32 = 1
@@ -160,11 +169,10 @@ AudioUnitSetProperty(audioUnit!,
                      &outputCallbackStruct,
                      UInt32(MemoryLayout<AURenderCallbackStruct>.size))
 
-AudioUnitInitialize(audioUnit)
+
 
 var emptySampleBuffer: CMSampleBuffer!
 var audioBufferList: AudioBufferList!
-var osStatus: OSStatus = -1
 osStatus = CMSampleBufferSetDataBufferFromAudioBufferList(emptySampleBuffer,
                                                           blockBufferAllocator: kCFAllocatorDefault,
                                                           blockBufferMemoryAllocator: kCFAllocatorDefault,
