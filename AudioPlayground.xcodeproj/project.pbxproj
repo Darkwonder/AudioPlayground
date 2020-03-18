@@ -10,6 +10,7 @@
 		F65D7A242407BC0500A55E3E /* AudioPlayground.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F65D7A1A2407BC0500A55E3E /* AudioPlayground.framework */; };
 		F65D7A292407BC0500A55E3E /* AudioPlaygroundTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F65D7A282407BC0500A55E3E /* AudioPlaygroundTests.m */; };
 		F65D7A2B2407BC0500A55E3E /* AudioPlayground.h in Headers */ = {isa = PBXBuildFile; fileRef = F65D7A1D2407BC0500A55E3E /* AudioPlayground.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F66AF7C3240E929700B9C2DB /* testAVAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66AF7C2240E929700B9C2DB /* testAVAudioEngine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +31,9 @@
 		F65D7A232407BC0500A55E3E /* AudioPlaygroundTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioPlaygroundTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F65D7A282407BC0500A55E3E /* AudioPlaygroundTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioPlaygroundTests.m; sourceTree = "<group>"; };
 		F65D7A2A2407BC0500A55E3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F66AF7BF240E925C00B9C2DB /* AudioPlaygroundTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AudioPlaygroundTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		F66AF7C2240E929700B9C2DB /* testAVAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testAVAudioEngine.swift; sourceTree = "<group>"; };
+		F66AF7C4240E931400B9C2DB /* AVFoundation.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = AVFoundation.playground; path = Playgrounds/AVFoundation.playground; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F6AFF22E240E3A5B00725E30 /* AudioToolBox.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = AudioToolBox.playground; path = Playgrounds/AudioToolBox.playground; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
@@ -76,6 +80,7 @@
 				F6AFF22D240E3A4900725E30 /* Playgrounds */,
 				F65D7A1D2407BC0500A55E3E /* AudioPlayground.h */,
 				F65D7A1E2407BC0500A55E3E /* Info.plist */,
+				F66AF7BF240E925C00B9C2DB /* AudioPlaygroundTests-Bridging-Header.h */,
 			);
 			path = AudioPlayground;
 			sourceTree = "<group>";
@@ -83,6 +88,7 @@
 		F65D7A272407BC0500A55E3E /* AudioPlaygroundTests */ = {
 			isa = PBXGroup;
 			children = (
+				F66AF7C2240E929700B9C2DB /* testAVAudioEngine.swift */,
 				F65D7A282407BC0500A55E3E /* AudioPlaygroundTests.m */,
 				F65D7A2A2407BC0500A55E3E /* Info.plist */,
 			);
@@ -92,6 +98,7 @@
 		F6AFF22D240E3A4900725E30 /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				F66AF7C4240E931400B9C2DB /* AVFoundation.playground */,
 				F61E7FE8240E633100B4175B /* CoreAudio.playground */,
 				F6AFF22E240E3A5B00725E30 /* AudioToolBox.playground */,
 			);
@@ -162,6 +169,7 @@
 					};
 					F65D7A222407BC0500A55E3E = {
 						CreatedOnToolsVersion = 11.2.1;
+						LastSwiftMigration = 1120;
 					};
 				};
 			};
@@ -214,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F65D7A292407BC0500A55E3E /* AudioPlaygroundTests.m in Sources */,
+				F66AF7C3240E929700B9C2DB /* testAVAudioEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +401,7 @@
 		F65D7A322407BC0500A55E3E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 4574F346W6;
@@ -403,12 +413,16 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = excellence.com.AudioPlaygroundTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AudioPlayground/AudioPlaygroundTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		F65D7A332407BC0500A55E3E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 4574F346W6;
@@ -420,6 +434,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = excellence.com.AudioPlaygroundTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AudioPlayground/AudioPlaygroundTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
